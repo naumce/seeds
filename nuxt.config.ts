@@ -53,7 +53,7 @@ export default defineNuxtConfig({
     resendApiKey: process.env.RESEND_API_KEY || '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-      heroFrameCount: 734,
+      heroFrameCount: 812,
     },
   },
   routeRules: {

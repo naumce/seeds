@@ -19,9 +19,10 @@ npm run build      # SSR build + prerender of all public routes
 | `content/categories.json` | The four product families. |
 | `content/ui.json` | All UI copy in MK/EN. |
 | `public/images/hero/` | 8 hero keyframes + `poster.jpg`. |
-| `public/videos/` | (local only, git-ignored) 7 Higgsfield clips + merged master `spice-story-final.mp4`. |
-| `public/frames/desktop` | 734 WebP frames @ 15 fps, 1152 w (72 MB) — scrubbed by the hero canvas. |
-| `public/frames/mobile` | 734 WebP frames @ 15 fps, 640 w (30 MB). Also used on desktop when the preloader measures a slow connection. |
+| `public/videos/` | (local only, git-ignored) 8 Higgsfield clips (clip 5 is split in two via an intermediate keyframe) + merged master `spice-story-final.mp4` (54 s). |
+| `public/frames/hd` | 812 WebP frames @ 15 fps, 1920 w (186 MB) — used when the preloader measures a fast connection. |
+| `public/frames/desktop` | 812 WebP frames @ 15 fps, 1152 w (78 MB) — scrubbed by the hero canvas. |
+| `public/frames/mobile` | 812 WebP frames @ 15 fps, 640 w (32 MB). Also used on desktop when the preloader measures a slow connection. |
 | `app/components/HeroSequence.vue` | Pinned canvas hero, GSAP ScrollTrigger, rolling-window frame loader. |
 | `app/composables/useFrameSequence.ts` | The loader: primes 24 frames, keeps ±40 around scroll, prefetches in scroll direction, evicts the rest. |
 | `app/composables/useLocale.ts` | Minimal MK/EN layer. Swap for `@nuxtjs/i18n` later — content shape is already `{ en, mk }`. |
