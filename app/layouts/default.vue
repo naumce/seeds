@@ -5,7 +5,7 @@ const open = ref(false)
 watch(() => route.path, () => (open.value = false))
 
 /* The nav is light-on-dark only while the cinematic hero is pinned. */
-const HERO_PIN_VH = 6.5
+const HERO_PIN_VH = 9
 const pastHero = ref(false)
 const dark = computed(() => route.path === '/' && !pastHero.value)
 const onScroll = () => {

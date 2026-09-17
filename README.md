@@ -20,8 +20,8 @@ npm run build      # SSR build + prerender of all public routes
 | `content/ui.json` | All UI copy in MK/EN. |
 | `public/images/hero/` | 8 hero keyframes + `poster.jpg`. |
 | `public/videos/` | (local only, git-ignored) 7 Higgsfield clips + merged master `spice-story-final.mp4`. |
-| `public/frames/desktop` | 979 WebP frames, 1280 w (115 MB) — scrubbed by the hero canvas. |
-| `public/frames/mobile` | 979 WebP frames, 640 w (42 MB). |
+| `public/frames/desktop` | 734 WebP frames @ 15 fps, 1152 w (72 MB) — scrubbed by the hero canvas. |
+| `public/frames/mobile` | 734 WebP frames @ 15 fps, 640 w (30 MB). Also used on desktop when the preloader measures a slow connection. |
 | `app/components/HeroSequence.vue` | Pinned canvas hero, GSAP ScrollTrigger, rolling-window frame loader. |
 | `app/composables/useFrameSequence.ts` | The loader: primes 24 frames, keeps ±40 around scroll, prefetches in scroll direction, evicts the rest. |
 | `app/composables/useLocale.ts` | Minimal MK/EN layer. Swap for `@nuxtjs/i18n` later — content shape is already `{ en, mk }`. |
@@ -32,8 +32,8 @@ npm run build      # SSR build + prerender of all public routes
 
 ```bash
 ffmpeg -f concat -safe 0 -i public/videos/concat.txt -c copy public/videos/spice-story-final.mp4
-ffmpeg -i public/videos/spice-story-final.mp4 -vf "fps=20,scale=1280:-2" -c:v libwebp -quality 72 public/frames/desktop/frame_%04d.webp
-ffmpeg -i public/videos/spice-story-final.mp4 -vf "fps=20,scale=640:-2"  -c:v libwebp -quality 70 public/frames/mobile/frame_%04d.webp
+ffmpeg -i public/videos/spice-story-final.mp4 -vf "fps=15,scale=1152:-2" -c:v libwebp -quality 68 public/frames/desktop/frame_%04d.webp
+ffmpeg -i public/videos/spice-story-final.mp4 -vf "fps=15,scale=640:-2"  -c:v libwebp -quality 66 public/frames/mobile/frame_%04d.webp
 ```
 
 Update `heroFrameCount` in `nuxt.config.ts` if the count changes.

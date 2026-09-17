@@ -101,25 +101,43 @@ export const useFrameSequence = (opts: FrameSequenceOptions) => {
       setTimeout(finish, timeoutMs)
     })
 
-  /** Call on every scroll update; reprioritises the queue around `index`. */
+  /**
+   * Call on every scroll update; reprioritises the queue around `index`.
+   * The current frame and the next few in the scroll direction go to the
+   * front so a fast flick is fed before the wider window is filled.
+   */
   const seek = (index: number) => {
     const i = Math.max(0, Math.min(opts.count - 1, Math.round(index)))
     if (i !== lastIndex) direction = i > lastIndex ? 1 : -1
     lastIndex = i
+    const urgent = Array.from({ length: 8 }, (_, k) => i + direction * k)
+    const ahead = Array.from({ length: windowSize }, (_, k) => i + direction * (k + 8))
+    const behind = Array.from({ length: Math.floor(windowSize / 3) }, (_, k) => i - direction * (k + 1))
     queue.length = 0
-    const ahead = Array.from({ length: windowSize }, (_, k) => i + direction * (k + 1))
-    const behind = Array.from({ length: Math.floor(windowSize / 2) }, (_, k) => i - direction * (k + 1))
-    enqueue([i, ...ahead, ...behind])
+    enqueue([...urgent, ...ahead, ...behind])
     evict(i)
   }
 
-  /** Nearest decoded frame at or below `index`, falling back upward. */
+  const stats = { hits: 0, misses: 0, lastDrawn: 0 }
+
+  /** Nearest decoded frame to `index`, preferring earlier frames. */
   const nearest = (index: number): HTMLImageElement | undefined => {
     const i = Math.max(0, Math.min(opts.count - 1, Math.round(index)))
-    if (cache.has(i)) return cache.get(i)
+    if (cache.has(i)) {
+      stats.hits += 1
+      stats.lastDrawn = i
+      return cache.get(i)
+    }
+    stats.misses += 1
     for (let d = 1; d < opts.count; d += 1) {
-      if (cache.has(i - d)) return cache.get(i - d)
-      if (cache.has(i + d)) return cache.get(i + d)
+      if (cache.has(i - d)) {
+        stats.lastDrawn = i - d
+        return cache.get(i - d)
+      }
+      if (cache.has(i + d)) {
+        stats.lastDrawn = i + d
+        return cache.get(i + d)
+      }
     }
     return undefined
   }
@@ -134,5 +152,5 @@ export const useFrameSequence = (opts: FrameSequenceOptions) => {
     onDecoded = null
   }
 
-  return { prime, seek, nearest, onFrame, dispose }
+  return { prime, seek, nearest, onFrame, dispose, stats, cached: () => cache.size }
 }

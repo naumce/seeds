@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     inquiryToEmail: process.env.INQUIRY_TO_EMAIL || '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-      heroFrameCount: 979,
+      heroFrameCount: 734,
     },
   },
   routeRules: {

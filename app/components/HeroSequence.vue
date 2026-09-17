@@ -6,8 +6,15 @@ const { t } = useLocale()
 const config = useRuntimeConfig()
 const FRAME_COUNT = Number(config.public.heroFrameCount)
 const MOBILE_MAX_WIDTH = 820
-/** Scroll distance of the pinned hero, in viewport heights. */
-const SCROLL_LENGTH_VH = 5.5
+/** Below this measured preload rate the large frame set can't keep up with scrolling. */
+const SLOW_FRAMES_PER_SECOND = 45
+
+const connectionIsSlow = () => {
+  const c = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
+  return Boolean(c?.saveData) || c?.effectiveType === '2g' || c?.effectiveType === '3g' || c?.effectiveType === 'slow-2g'
+}
+/** Scroll distance of the pinned hero, in viewport heights (~14 frames per 100 px at 900 px tall). */
+const SCROLL_LENGTH_VH = 8
 
 /* Copy beats, as scroll-progress ranges (from the build guide). */
 const beats = [
@@ -48,9 +55,11 @@ const labelsOpacity = computed(() => Math.max(0, Math.min(1, (progress.value - 0
 let ctx: gsap.Context | null = null
 let sequence: ReturnType<typeof useFrameSequence> | null = null
 let raf = 0
+let drawQueued = false
 let currentIndex = 0
 
 const draw = () => {
+  drawQueued = false
   const c = canvas.value
   const img = sequence?.nearest(currentIndex)
   if (!c || !img) return
@@ -66,8 +75,11 @@ const draw = () => {
   g.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h)
 }
 
+/* One draw per animation frame, never cancelled — a cancel-and-requeue
+   pattern starves the canvas while ScrollTrigger updates every tick. */
 const scheduleDraw = () => {
-  cancelAnimationFrame(raf)
+  if (drawQueued) return
+  drawQueued = true
   raf = requestAnimationFrame(draw)
 }
 
@@ -87,10 +99,16 @@ onMounted(async () => {
     return
   }
 
-  const set = window.innerWidth <= MOBILE_MAX_WIDTH ? 'mobile' : 'desktop'
+  /* Frame set is mutable: we start on the size the viewport deserves and
+     drop to the small set if the preloader shows the connection can't feed
+     the large one at scroll speed. Already-decoded frames stay valid. */
+  let set: 'desktop' | 'mobile' = window.innerWidth <= MOBILE_MAX_WIDTH || connectionIsSlow() ? 'mobile' : 'desktop'
   sequence = useFrameSequence({
     count: FRAME_COUNT,
     url: (i) => `/frames/${set}/frame_${String(i + 1).padStart(4, '0')}.webp`,
+    window: 80,
+    initial: 40,
+    concurrency: 10,
   })
   sequence.onFrame((i) => {
     if (Math.abs(i - currentIndex) <= 1) scheduleDraw()
@@ -100,9 +118,30 @@ onMounted(async () => {
   resize()
   window.addEventListener('resize', resize, { passive: true })
 
+  const primeStart = performance.now()
   await sequence.prime((ratio) => (loaded.value = ratio))
+  const framesPerSecond = (40 * 1000) / Math.max(1, performance.now() - primeStart)
+  if (set === 'desktop' && framesPerSecond < SLOW_FRAMES_PER_SECOND) set = 'mobile'
   ready.value = true
   scheduleDraw()
+
+  if (import.meta.dev) {
+    ;(window as unknown as { __hero: unknown }).__hero = {
+      get index() {
+        return currentIndex
+      },
+      get stats() {
+        return sequence?.stats
+      },
+      get cached() {
+        return sequence?.cached()
+      },
+      get set() {
+        return set
+      },
+      framesPerSecond,
+    }
+  }
 
   ctx = gsap.context(() => {
     ScrollTrigger.create({

@@ -64,6 +64,8 @@ const quality = ['q1', 'q2', 'q3']
       </div>
     </section>
 
+    <ColumnsMosaic />
+
     <!-- Approach -->
     <section class="section">
       <div class="wrap approach">
@@ -98,13 +100,7 @@ const quality = ['q1', 'q2', 'q3']
       </div>
     </section>
 
-    <!-- Markets -->
-    <section class="section markets">
-      <div class="wrap">
-        <p class="eyebrow">{{ t('home.marketsEyebrow') }}</p>
-        <p class="serif t-md">{{ t('home.marketsTitle') }}</p>
-      </div>
-    </section>
+    <StatementParallax />
   </div>
 </template>
 
@@ -200,11 +196,6 @@ const quality = ['q1', 'q2', 'q3']
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 8px;
-}
-
-.markets {
-  padding-block: clamp(32px, 5vw, 64px);
-  border-top: 1px solid var(--rule);
 }
 
 @media (max-width: 1024px) {
