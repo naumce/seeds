@@ -28,5 +28,7 @@ export default defineNuxtPlugin(() => {
     })
   })
 
+  if (import.meta.dev) (window as unknown as { __ST: unknown }).__ST = ScrollTrigger
+
   return { provide: { lenis } }
 })

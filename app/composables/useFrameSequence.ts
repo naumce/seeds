@@ -146,11 +146,17 @@ export const useFrameSequence = (opts: FrameSequenceOptions) => {
     onDecoded = fn
   }
 
+  /** Drop every decoded frame so the next seeks refetch from the current URL set. */
+  const reset = () => {
+    queue.length = 0
+    cache.clear()
+  }
+
   const dispose = () => {
     queue.length = 0
     cache.clear()
     onDecoded = null
   }
 
-  return { prime, seek, nearest, onFrame, dispose, stats, cached: () => cache.size }
+  return { prime, seek, nearest, onFrame, reset, dispose, stats, cached: () => cache.size }
 }

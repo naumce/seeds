@@ -6,8 +6,11 @@ const { t } = useLocale()
 const config = useRuntimeConfig()
 const FRAME_COUNT = Number(config.public.heroFrameCount)
 const MOBILE_MAX_WIDTH = 820
-/** Below this measured preload rate the large frame set can't keep up with scrolling. */
+/* Frame tiers (all 734 frames @ 15 fps): hd 1920w ~234 KB, desktop 1152w ~100 KB, mobile 640w ~41 KB.
+   The preloader runs on the middle tier and measures throughput; we then move up or down. */
+type FrameSet = 'hd' | 'desktop' | 'mobile'
 const SLOW_FRAMES_PER_SECOND = 45
+const FAST_FRAMES_PER_SECOND = 90
 
 const connectionIsSlow = () => {
   const c = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
@@ -102,7 +105,8 @@ onMounted(async () => {
   /* Frame set is mutable: we start on the size the viewport deserves and
      drop to the small set if the preloader shows the connection can't feed
      the large one at scroll speed. Already-decoded frames stay valid. */
-  let set: 'desktop' | 'mobile' = window.innerWidth <= MOBILE_MAX_WIDTH || connectionIsSlow() ? 'mobile' : 'desktop'
+  const isMobile = window.innerWidth <= MOBILE_MAX_WIDTH || connectionIsSlow()
+  let set: FrameSet = isMobile ? 'mobile' : 'desktop'
   sequence = useFrameSequence({
     count: FRAME_COUNT,
     url: (i) => `/frames/${set}/frame_${String(i + 1).padStart(4, '0')}.webp`,
@@ -121,7 +125,15 @@ onMounted(async () => {
   const primeStart = performance.now()
   await sequence.prime((ratio) => (loaded.value = ratio))
   const framesPerSecond = (40 * 1000) / Math.max(1, performance.now() - primeStart)
-  if (set === 'desktop' && framesPerSecond < SLOW_FRAMES_PER_SECOND) set = 'mobile'
+  if (set === 'desktop') {
+    if (framesPerSecond < SLOW_FRAMES_PER_SECOND) set = 'mobile'
+    else if (framesPerSecond >= FAST_FRAMES_PER_SECOND) set = 'hd'
+  }
+  /* Tier changed: quietly replace the primed middle-tier frames with the new tier. */
+  if (set !== 'desktop' && !isMobile) {
+    sequence.reset()
+    sequence.seek(0)
+  }
   ready.value = true
   scheduleDraw()
 
@@ -151,6 +163,7 @@ onMounted(async () => {
       pin: true,
       scrub: 0.4,
       anticipatePin: 1,
+      refreshPriority: 10,
       onUpdate: (self) => {
         progress.value = self.progress
         const next = Math.round(self.progress * (FRAME_COUNT - 1))
@@ -162,6 +175,12 @@ onMounted(async () => {
       },
     })
   }, root.value ?? undefined)
+
+  /* The pin spacer shifts everything below. This trigger is created last (after the
+     preloader), so sort by priority/position first or the others measure before the
+     spacer exists. */
+  ScrollTrigger.sort()
+  ScrollTrigger.refresh()
 })
 
 onBeforeUnmount(() => {

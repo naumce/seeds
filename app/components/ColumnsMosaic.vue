@@ -9,11 +9,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
  */
 const { t } = useLocale()
 
+/* dir -1 = column travels upward as you scroll (and slides in from its side); dir 1 = downward. */
 const columns = [
-  { dir: -1, images: ['/images/hero/spice-02-orbit.webp', '/images/hero/spice-05-suspended.webp', '/images/hero/spice-08-categories.webp'] },
-  { dir: 1, images: ['/images/hero/spice-04-explosion.webp', '/images/hero/spice-01-peppercorn.webp', '/images/hero/spice-07-trade-focus.webp'] },
-  { dir: -1, images: ['/images/hero/spice-03-first-color.webp', '/images/hero/spice-06-world-map.webp', '/images/journey/02-drying.webp'] },
+  { dir: -1, side: -1, images: ['/images/hero/spice-02-orbit.webp', '/images/hero/spice-08-categories.webp', '/images/hero/spice-05-suspended.webp', '/images/journey/01-plant.webp'] },
+  { dir: 1, side: 0, images: ['/images/hero/spice-04-explosion.webp', '/images/hero/spice-01-peppercorn.webp', '/images/hero/spice-07-trade-focus.webp', '/images/hero/spice-03-first-color.webp'] },
+  { dir: -1, side: 1, images: ['/images/hero/spice-06-world-map.webp', '/images/journey/02-drying.webp', '/images/hero/spice-04-explosion.webp', '/images/hero/spice-02-orbit.webp'] },
 ]
+const TRAVEL_PERCENT = 28
+const SLIDE_PERCENT = 14
 
 const root = ref<HTMLElement | null>(null)
 let ctx: gsap.Context | null = null
@@ -24,16 +27,28 @@ onMounted(() => {
   ctx = gsap.context(() => {
     gsap.utils.toArray<HTMLElement>('.mosaic__col').forEach((col) => {
       const dir = Number(col.dataset.dir) || 1
+      const side = Number(col.dataset.side) || 0
       gsap.fromTo(
         col,
-        { yPercent: dir * 8 },
+        { yPercent: dir * TRAVEL_PERCENT, xPercent: side * SLIDE_PERCENT },
         {
-          yPercent: dir * -8,
+          yPercent: dir * -TRAVEL_PERCENT,
+          xPercent: 0,
           ease: 'none',
           scrollTrigger: { trigger: root.value, start: 'top bottom', end: 'bottom top', scrub: true },
         },
       )
     })
+    gsap.fromTo(
+      '.mosaic__overlay h2',
+      { yPercent: 40, opacity: 0 },
+      {
+        yPercent: -40,
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: root.value, start: 'top 70%', end: 'bottom 30%', scrub: true },
+      },
+    )
   }, root.value ?? undefined)
 })
 onBeforeUnmount(() => ctx?.revert())
@@ -41,7 +56,7 @@ onBeforeUnmount(() => ctx?.revert())
 
 <template>
   <section ref="root" class="mosaic" :aria-label="t('home.mosaicTitle')">
-    <div v-for="(col, i) in columns" :key="i" class="mosaic__col" :data-dir="col.dir">
+    <div v-for="(col, i) in columns" :key="i" class="mosaic__col" :data-dir="col.dir" :data-side="col.side">
       <img v-for="src in col.images" :key="src" :src="src" alt="" loading="lazy" width="2000" height="1131" />
     </div>
     <div class="mosaic__overlay">
@@ -56,7 +71,7 @@ onBeforeUnmount(() => ctx?.revert())
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  height: 140vh;
+  height: 170vh;
   overflow: hidden;
   background: var(--charcoal);
 }
@@ -70,10 +85,10 @@ onBeforeUnmount(() => ctx?.revert())
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  opacity: 0.55;
+  opacity: 0.6;
 }
 .mosaic__col:nth-child(2) {
-  margin-top: -20vh;
+  margin-top: -30vh;
 }
 .mosaic__overlay {
   position: absolute;
@@ -89,10 +104,11 @@ onBeforeUnmount(() => ctx?.revert())
   font-style: italic;
   font-weight: 300;
   padding-inline: var(--gutter);
+  text-shadow: 0 2px 48px rgba(0, 0, 0, 0.85);
 }
 @media (max-width: 820px) {
   .mosaic {
-    height: 110vh;
+    height: 130vh;
     gap: 8px;
   }
   .mosaic__col {
