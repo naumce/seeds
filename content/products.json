@@ -1,0 +1,172 @@
+[
+  {
+    "slug": "sweet-paprika",
+    "category": "spices",
+    "published": true,
+    "featured": true,
+    "name": { "en": "Sweet paprika", "mk": "Сладок црвен пипер" },
+    "latin": "Capsicum annuum",
+    "origin": { "en": "North Macedonia / Serbia", "mk": "Северна Македонија / Србија" },
+    "forms": { "en": ["Ground, fine", "Ground, coarse"], "mk": ["Мелен, фин", "Мелен, крупен"] },
+    "packaging": ["1 kg", "5 kg", "25 kg"],
+    "description": {
+      "en": "Deep red, mild and sweet. Selected from sun-ripened peppers and ground to order for maximum colour retention.",
+      "mk": "Длабоко црвен, благ и сладок. Селектиран од сончево зрели пиперки и мелен по нарачка за максимално задржување на бојата."
+    },
+    "applications": { "en": ["Meat processing", "Snack seasoning", "Sauces and marinades"], "mk": ["Месна индустрија", "Зачини за грицки", "Сосови и маринади"] },
+    "specs": [
+      { "k": { "en": "Colour (ASTA)", "mk": "Боја (ASTA)" }, "v": "100–140" },
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 11 %" },
+      { "k": { "en": "Shelf life", "mk": "Рок на траење" }, "v": "24 months" }
+    ],
+    "image": "/images/products/paprika-powder.webp"
+  },
+  {
+    "slug": "black-pepper",
+    "category": "spices",
+    "published": true,
+    "featured": true,
+    "name": { "en": "Black pepper", "mk": "Црн бибер" },
+    "latin": "Piper nigrum",
+    "origin": { "en": "Vietnam / Brazil", "mk": "Виетнам / Бразил" },
+    "forms": { "en": ["Whole", "Cracked", "Ground"], "mk": ["Цел", "Кршен", "Мелен"] },
+    "packaging": ["1 kg", "5 kg", "25 kg"],
+    "description": {
+      "en": "Whole peppercorns with a clean, sharp heat. Machine-cleaned and steam-treated on request.",
+      "mk": "Цели зрна бибер со чиста, остра лутина. Машински чистени и третирани со пареа по барање."
+    },
+    "applications": { "en": ["Meat processing", "Seasoning blends", "Retail packing"], "mk": ["Месна индустрија", "Мешавини", "Малопродажно пакување"] },
+    "specs": [
+      { "k": { "en": "Density", "mk": "Густина" }, "v": "≥ 550 g/l" },
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 12 %" },
+      { "k": { "en": "Shelf life", "mk": "Рок на траење" }, "v": "36 months" }
+    ],
+    "image": "/images/products/black-peppercorns.webp"
+  },
+  {
+    "slug": "turmeric",
+    "category": "spices",
+    "published": true,
+    "featured": false,
+    "name": { "en": "Turmeric", "mk": "Куркума" },
+    "latin": "Curcuma longa",
+    "origin": { "en": "India", "mk": "Индија" },
+    "forms": { "en": ["Ground"], "mk": ["Мелена"] },
+    "packaging": ["1 kg", "5 kg", "25 kg"],
+    "description": {
+      "en": "Bright golden turmeric with a high curcumin content and an earthy, warm flavour.",
+      "mk": "Светло златна куркума со висока содржина на куркумин и земјен, топол вкус."
+    },
+    "applications": { "en": ["Blends", "Food colouring", "Sauces"], "mk": ["Мешавини", "Боење на храна", "Сосови"] },
+    "specs": [
+      { "k": { "en": "Curcumin", "mk": "Куркумин" }, "v": "≥ 3 %" },
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 10 %" }
+    ],
+    "image": "/images/products/turmeric-powder.webp"
+  },
+  {
+    "slug": "chilli-flakes",
+    "category": "spices",
+    "published": true,
+    "featured": false,
+    "name": { "en": "Chilli flakes", "mk": "Чили лушпи" },
+    "latin": "Capsicum frutescens",
+    "origin": { "en": "North Macedonia / India", "mk": "Северна Македонија / Индија" },
+    "forms": { "en": ["Crushed, with seeds", "Crushed, seedless"], "mk": ["Кршени, со семки", "Кршени, без семки"] },
+    "packaging": ["1 kg", "5 kg", "20 kg"],
+    "description": {
+      "en": "Crushed red chilli with visible seeds for a slow, building heat.",
+      "mk": "Кршен црвен чили со видливи семки за постепена, растечка лутина."
+    },
+    "applications": { "en": ["Pizza and pasta", "Snack seasoning", "Sauces"], "mk": ["Пица и тестенини", "Зачини за грицки", "Сосови"] },
+    "specs": [
+      { "k": { "en": "Heat", "mk": "Лутина" }, "v": "15 000–30 000 SHU" },
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 11 %" }
+    ],
+    "image": "/images/products/chilli-flakes.webp"
+  },
+  {
+    "slug": "parsley",
+    "category": "herbs",
+    "published": true,
+    "featured": true,
+    "name": { "en": "Parsley flakes", "mk": "Магдонос" },
+    "latin": "Petroselinum crispum",
+    "origin": { "en": "North Macedonia", "mk": "Северна Македонија" },
+    "forms": { "en": ["Flakes", "Rubbed"], "mk": ["Лушпи", "Ситен"] },
+    "packaging": ["500 g", "5 kg", "10 kg"],
+    "description": {
+      "en": "Air-dried parsley leaves with the green colour intact and no stems.",
+      "mk": "Сушени лисја магдонос со зачувана зелена боја, без стебла."
+    },
+    "applications": { "en": ["Soups and stocks", "Dairy", "Ready meals"], "mk": ["Супи и чорби", "Млечни производи", "Готови јадења"] },
+    "specs": [
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 8 %" },
+      { "k": { "en": "Shelf life", "mk": "Рок на траење" }, "v": "18 months" }
+    ],
+    "image": "/images/products/parsley-flakes.webp"
+  },
+  {
+    "slug": "oregano",
+    "category": "herbs",
+    "published": true,
+    "featured": false,
+    "name": { "en": "Oregano", "mk": "Оригано" },
+    "latin": "Origanum vulgare",
+    "origin": { "en": "North Macedonia / Türkiye", "mk": "Северна Македонија / Турција" },
+    "forms": { "en": ["Rubbed leaves"], "mk": ["Ситни лисја"] },
+    "packaging": ["500 g", "5 kg", "10 kg"],
+    "description": {
+      "en": "Mediterranean oregano, rubbed and sieved for an even leaf size and strong aroma.",
+      "mk": "Медитеранско оригано, ситнето и просеано за рамномерна големина и силна арома."
+    },
+    "applications": { "en": ["Pizza and pasta", "Meat marinades", "Blends"], "mk": ["Пица и тестенини", "Маринади", "Мешавини"] },
+    "specs": [
+      { "k": { "en": "Essential oil", "mk": "Етерично масло" }, "v": "≥ 2 %" },
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 10 %" }
+    ],
+    "image": "/images/products/oregano.webp"
+  },
+  {
+    "slug": "onion-pieces",
+    "category": "dried-vegetables",
+    "published": true,
+    "featured": true,
+    "name": { "en": "Dried onion", "mk": "Сушен кромид" },
+    "latin": "Allium cepa",
+    "origin": { "en": "North Macedonia / Egypt", "mk": "Северна Македонија / Египет" },
+    "forms": { "en": ["Kibbled 3–5 mm", "Minced 1–3 mm", "Powder"], "mk": ["Сечкан 3–5 mm", "Ситен 1–3 mm", "Прав"] },
+    "packaging": ["5 kg", "10 kg", "20 kg"],
+    "description": {
+      "en": "Pale dehydrated onion pieces that rehydrate quickly and keep a clean, sweet flavour.",
+      "mk": "Светли дехидрирани парчиња кромид кои брзо се рехидрираат и задржуваат чист, сладок вкус."
+    },
+    "applications": { "en": ["Soups and stocks", "Snack seasoning", "Ready meals"], "mk": ["Супи и чорби", "Зачини за грицки", "Готови јадења"] },
+    "specs": [
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 6 %" },
+      { "k": { "en": "Shelf life", "mk": "Рок на траење" }, "v": "24 months" }
+    ],
+    "image": "/images/products/onion-pieces.webp"
+  },
+  {
+    "slug": "garlic-flakes",
+    "category": "dried-vegetables",
+    "published": true,
+    "featured": false,
+    "name": { "en": "Garlic flakes", "mk": "Сушен лук" },
+    "latin": "Allium sativum",
+    "origin": { "en": "China / Egypt", "mk": "Кина / Египет" },
+    "forms": { "en": ["Flakes", "Granules", "Powder"], "mk": ["Лушпи", "Гранули", "Прав"] },
+    "packaging": ["5 kg", "10 kg", "20 kg"],
+    "description": {
+      "en": "Thin, evenly sliced garlic flakes with a full, pungent aroma.",
+      "mk": "Тенки, рамномерно сечени лушпи лук со полна, изразена арома."
+    },
+    "applications": { "en": ["Blends", "Sauces", "Meat processing"], "mk": ["Мешавини", "Сосови", "Месна индустрија"] },
+    "specs": [
+      { "k": { "en": "Moisture", "mk": "Влага" }, "v": "≤ 6 %" },
+      { "k": { "en": "Shelf life", "mk": "Рок на траење" }, "v": "24 months" }
+    ],
+    "image": "/images/products/garlic-flakes.webp"
+  }
+]

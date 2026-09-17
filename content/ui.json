@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "collection": { "en": "Collection", "mk": "Производи" },
+    "story": { "en": "Our story", "mk": "За нас" },
+    "quality": { "en": "Quality", "mk": "Квалитет" },
+    "contact": { "en": "Contact", "mk": "Контакт" },
+    "quote": { "en": "Request a quote", "mk": "Побарај понуда" }
+  },
+  "hero": {
+    "l1": { "en": "From earth", "mk": "Од земјата" },
+    "l2": { "en": "to flavour.", "mk": "до вкусот." },
+    "l3": { "en": "Spices · Herbs · Dried vegetables", "mk": "Зачини · Билки · Сушен зеленчук" },
+    "l4": { "en": "Sourced globally.", "mk": "Набавено од целиот свет." },
+    "l5": { "en": "Delivered reliably.", "mk": "Испорачано сигурно." },
+    "scroll": { "en": "Scroll", "mk": "Скролај" },
+    "static": { "en": "One peppercorn. A global product story.", "mk": "Едно зрно бибер. Глобална приказна за производи." }
+  },
+  "home": {
+    "eyebrow": { "en": "Spices & dried vegetables", "mk": "Зачини и сушен зеленчук" },
+    "title": { "en": "Good things,\nin their purest form.", "mk": "Добрите работи,\nво најчиста форма." },
+    "sub": { "en": "Carefully selected ingredients.\nFor the people who create with them.", "mk": "Внимателно селектирани состојки.\nЗа луѓето кои создаваат со нив." },
+    "explore": { "en": "Explore our collection", "mk": "Погледни ги производите" },
+    "catEyebrow": { "en": "Product families", "mk": "Групи производи" },
+    "catTitle": { "en": "Four families. One standard.", "mk": "Четири групи. Еден стандард." },
+    "selEyebrow": { "en": "Our collection", "mk": "Од понудата" },
+    "selTitle": { "en": "An essential palette.", "mk": "Основна палета." },
+    "viewAll": { "en": "View all ingredients", "mk": "Сите производи" },
+    "aboutEyebrow": { "en": "Our approach", "mk": "Нашиот пристап" },
+    "aboutTitle": { "en": "Considered ingredients.\nLasting relationships.", "mk": "Промислени состојки.\nТрајни партнерства." },
+    "aboutBody": {
+      "en": "We import, process and export spices, herbs and dried vegetables for food manufacturers and distributors across the Balkans and Europe. Small enough to answer the phone; established enough to fill a pallet on schedule.",
+      "mk": "Увезуваме, обработуваме и извезуваме зачини, билки и сушен зеленчук за производители на храна и дистрибутери низ Балканот и Европа. Доволно мали за да го кренеме телефонот; доволно етаблирани за да наполниме палета на време."
+    },
+    "aboutLink": { "en": "Our story", "mk": "За нас" },
+    "journeyEyebrow": { "en": "Origin to destination", "mk": "Од потекло до дестинација" },
+    "journeyTitle": { "en": "Plant. Harvest. Dry. Cut. Pack. Ship.", "mk": "Растение. Берба. Сушење. Сечење. Пакување. Испорака." },
+    "j1": { "en": "Grown in the field", "mk": "Одгледано на нива" },
+    "j2": { "en": "Sun-dried and sorted", "mk": "Сушено на сонце и сортирано" },
+    "j3": { "en": "Packed for export", "mk": "Спакувано за извоз" },
+    "qualityEyebrow": { "en": "Quality", "mk": "Квалитет" },
+    "qualityTitle": { "en": "Traceable from origin.", "mk": "Следливо од потеклото." },
+    "q1t": { "en": "Certified sourcing", "mk": "Сертифицирана набавка" },
+    "q1b": { "en": "Every lot is documented from farm to warehouse, with certificates on request.", "mk": "Секоја серија е документирана од нивата до магацинот, со сертификати на барање." },
+    "q2t": { "en": "Laboratory tested", "mk": "Лабораториски тестирано" },
+    "q2b": { "en": "Moisture, microbiology and pesticide residues checked on incoming and outgoing goods.", "mk": "Влага, микробиологија и остатоци од пестициди проверени на влезна и излезна стока." },
+    "q3t": { "en": "Food-grade packing", "mk": "Пакување за храна" },
+    "q3b": { "en": "Cleaned, steam-treated on request and packed in food-grade multiwall sacks.", "mk": "Чистено, третирано со пареа по барање и спакувано во повеќеслојни вреќи за храна." },
+    "marketsEyebrow": { "en": "Markets", "mk": "Пазари" },
+    "marketsTitle": { "en": "North Macedonia · Balkans · EU · Worldwide", "mk": "Северна Македонија · Балкан · ЕУ · Свет" },
+    "ctaTitle": { "en": "Let’s create something good.", "mk": "Да создадеме нешто добро." },
+    "ctaBtn": { "en": "Get in touch", "mk": "Контактирај нè" }
+  },
+  "products": {
+    "title": { "en": "Collection", "mk": "Производи" },
+    "all": { "en": "All", "mk": "Сите" },
+    "origin": { "en": "Origin", "mk": "Потекло" },
+    "forms": { "en": "Available forms", "mk": "Достапни форми" },
+    "packaging": { "en": "Packaging", "mk": "Пакување" },
+    "applications": { "en": "Applications", "mk": "Примена" },
+    "specs": { "en": "Specifications", "mk": "Спецификации" },
+    "related": { "en": "Related products", "mk": "Слични производи" },
+    "requestInfo": { "en": "Request information", "mk": "Побарај информации" }
+  },
+  "form": {
+    "title": { "en": "Request a quote", "mk": "Побарај понуда" },
+    "company": { "en": "Company", "mk": "Компанија" },
+    "name": { "en": "Your name", "mk": "Име и презиме" },
+    "email": { "en": "Email", "mk": "Е-пошта" },
+    "phone": { "en": "Phone (optional)", "mk": "Телефон (опционално)" },
+    "product": { "en": "Product", "mk": "Производ" },
+    "quantity": { "en": "Quantity (kg or pallets)", "mk": "Количина (kg или палети)" },
+    "message": { "en": "Message", "mk": "Порака" },
+    "send": { "en": "Send request", "mk": "Испрати барање" },
+    "sending": { "en": "Sending…", "mk": "Се испраќа…" },
+    "ok": { "en": "Thank you. We’ll reply within one working day.", "mk": "Ви благодариме. Ќе одговориме во рок од еден работен ден." },
+    "err": { "en": "Something went wrong. Please email us directly.", "mk": "Нешто не е во ред. Ве молиме пишете ни директно." }
+  },
+  "footer": { "tag": { "en": "North Macedonia · Worldwide", "mk": "Северна Македонија · Свет" } }
+}

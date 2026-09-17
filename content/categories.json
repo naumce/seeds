@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "spices",
+    "name": { "en": "Spices", "mk": "Зачини" },
+    "image": "/images/categories/spices.webp",
+    "blurb": {
+      "en": "Paprika, pepper, turmeric, chilli — ground, cracked or whole.",
+      "mk": "Пипер, бибер, куркума, чили — мелени, кршени или цели."
+    }
+  },
+  {
+    "slug": "herbs",
+    "name": { "en": "Herbs", "mk": "Билки" },
+    "image": "/images/categories/herbs.webp",
+    "blurb": {
+      "en": "Dried culinary leaves with the colour and aroma intact.",
+      "mk": "Сушени кулинарски лисја со зачувана боја и арома."
+    }
+  },
+  {
+    "slug": "dried-vegetables",
+    "name": { "en": "Dried vegetables", "mk": "Сушен зеленчук" },
+    "image": "/images/categories/dried-vegetables.webp",
+    "blurb": {
+      "en": "Onion, garlic and pepper cuts, dehydrated for long shelf life.",
+      "mk": "Кромид, лук и пиперка, дехидрирани за долг рок на траење."
+    }
+  },
+  {
+    "slug": "blends",
+    "name": { "en": "Blends", "mk": "Мешавини" },
+    "image": "/images/categories/blends.webp",
+    "blurb": {
+      "en": "Balanced mixes made to your specification.",
+      "mk": "Балансирани мешавини според ваша спецификација."
+    }
+  }
+]
