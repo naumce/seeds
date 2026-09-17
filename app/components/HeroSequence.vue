@@ -214,7 +214,7 @@ onBeforeUnmount(() => {
 
       <ul class="hero__labels" :style="{ opacity: labelsOpacity }">
         <li v-for="c in categoryLabels" :key="c.slug" :style="{ left: `${c.x}%` }">
-          <NuxtLink :to="`/products?category=${c.slug}`" class="hero__label">{{ catName(c.slug) }}</NuxtLink>
+          <NuxtLinkLocale :to="`/products?category=${c.slug}`" class="hero__label">{{ catName(c.slug) }}</NuxtLinkLocale>
         </li>
       </ul>
 

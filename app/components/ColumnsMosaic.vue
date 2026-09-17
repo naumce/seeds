@@ -117,5 +117,8 @@ onBeforeUnmount(() => ctx?.revert())
   .mosaic__col img {
     aspect-ratio: 3 / 4;
   }
+  .mosaic__col:nth-child(2) {
+    margin-top: -12vh;
+  }
 }
 </style>

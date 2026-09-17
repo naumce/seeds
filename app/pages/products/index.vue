@@ -36,7 +36,7 @@ useSeoMeta({
     </nav>
 
     <ul class="grid">
-      <li v-for="p in list" :key="p.slug"><ProductCard :product="p" /></li>
+      <li v-for="(p, i) in list" :key="p.slug" v-reveal="(i % 4) * 80"><ProductCard :product="p" /></li>
     </ul>
   </div>
 </template>

@@ -37,9 +37,9 @@ useHead({
 <template>
   <article class="wrap section">
     <nav class="crumbs eyebrow" aria-label="Breadcrumb">
-      <NuxtLink to="/products">{{ t('products.title') }}</NuxtLink>
+      <NuxtLinkLocale to="/products">{{ t('products.title') }}</NuxtLinkLocale>
       <span aria-hidden="true">/</span>
-      <NuxtLink :to="`/products?category=${product.category}`">{{ l(cat?.name) }}</NuxtLink>
+      <NuxtLinkLocale :to="`/products?category=${product.category}`">{{ l(cat?.name) }}</NuxtLinkLocale>
     </nav>
 
     <div class="detail">

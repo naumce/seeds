@@ -22,7 +22,7 @@ const quality = ['q1', 'q2', 'q3']
           <p class="eyebrow">{{ t('home.eyebrow') }}</p>
           <h1 class="serif t-xl pre intro__title">{{ t('home.title') }}</h1>
           <p class="pre muted intro__sub">{{ t('home.sub') }}</p>
-          <NuxtLink to="/products" class="link">{{ t('home.explore') }}</NuxtLink>
+          <NuxtLinkLocale to="/products" class="link">{{ t('home.explore') }}</NuxtLinkLocale>
         </div>
         <figure class="intro__media">
           <img src="/images/categories/spices.webp" alt="" width="2688" height="2016" loading="lazy" />
@@ -34,17 +34,17 @@ const quality = ['q1', 'q2', 'q3']
     <!-- Product families -->
     <section class="section">
       <div class="wrap">
-        <div class="head">
+        <div class="head" v-reveal>
           <p class="eyebrow">{{ t('home.catEyebrow') }}</p>
           <h2 class="serif t-lg">{{ t('home.catTitle') }}</h2>
         </div>
         <ul class="families">
-          <li v-for="c in allCategories()" :key="c.slug">
-            <NuxtLink :to="`/products?category=${c.slug}`" class="family">
+          <li v-for="(c, i) in allCategories()" :key="c.slug" v-reveal="i * 90">
+            <NuxtLinkLocale :to="`/products?category=${c.slug}`" class="family">
               <img :src="c.image" :alt="l(c.name)" loading="lazy" width="2688" height="2016" />
               <h3 class="family__name">{{ l(c.name) }} <span aria-hidden="true">↗</span></h3>
               <p class="muted family__blurb">{{ l(c.blurb) }}</p>
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
         </ul>
       </div>
@@ -53,13 +53,13 @@ const quality = ['q1', 'q2', 'q3']
     <!-- Selected products -->
     <section class="section">
       <div class="wrap">
-        <div class="head head--row">
+        <div class="head head--row" v-reveal>
           <p class="eyebrow">{{ t('home.selEyebrow') }}</p>
           <h2 class="serif t-lg">{{ t('home.selTitle') }}</h2>
-          <NuxtLink to="/products" class="link">{{ t('home.viewAll') }}</NuxtLink>
+          <NuxtLinkLocale to="/products" class="link">{{ t('home.viewAll') }}</NuxtLinkLocale>
         </div>
         <ul class="grid-4">
-          <li v-for="p in featured()" :key="p.slug"><ProductCard :product="p" /></li>
+          <li v-for="(p, i) in featured()" :key="p.slug" v-reveal="i * 90"><ProductCard :product="p" /></li>
         </ul>
       </div>
     </section>
@@ -69,14 +69,14 @@ const quality = ['q1', 'q2', 'q3']
     <!-- Approach -->
     <section class="section">
       <div class="wrap approach">
-        <figure class="approach__media">
+        <figure class="approach__media" v-reveal>
           <img src="/images/products/black-peppercorns.webp" alt="" loading="lazy" width="1600" height="2000" />
         </figure>
-        <div>
+        <div v-reveal="120">
           <p class="eyebrow">{{ t('home.aboutEyebrow') }}</p>
           <h2 class="serif t-lg pre">{{ t('home.aboutTitle') }}</h2>
           <p class="muted approach__body">{{ t('home.aboutBody') }}</p>
-          <NuxtLink to="/about" class="link">{{ t('home.aboutLink') }}</NuxtLink>
+          <NuxtLinkLocale to="/about" class="link">{{ t('home.aboutLink') }}</NuxtLinkLocale>
         </div>
       </div>
     </section>
@@ -87,12 +87,12 @@ const quality = ['q1', 'q2', 'q3']
     <!-- Quality -->
     <section class="section">
       <div class="wrap">
-        <div class="head">
+        <div class="head" v-reveal>
           <p class="eyebrow">{{ t('home.qualityEyebrow') }}</p>
           <h2 class="serif t-lg">{{ t('home.qualityTitle') }}</h2>
         </div>
         <ul class="grid-3 quality">
-          <li v-for="q in quality" :key="q">
+          <li v-for="(q, i) in quality" :key="q" v-reveal="i * 120">
             <h3 class="quality__t">{{ t(`home.${q}t`) }}</h3>
             <p class="muted">{{ t(`home.${q}b`) }}</p>
           </li>
@@ -223,9 +223,11 @@ const quality = ['q1', 'q2', 'q3']
   }
 }
 @media (max-width: 520px) {
-  .families,
-  .grid-4 {
+  .families {
     grid-template-columns: 1fr;
+  }
+  .grid-4 {
+    gap: 16px;
   }
 }
 </style>

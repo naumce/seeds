@@ -1,5 +1,7 @@
 import { z } from 'zod'
+import { Resend } from 'resend'
 import { checkRateLimit } from '../utils/rateLimit'
+import { renderInquiryEmail } from '../utils/inquiryEmail'
 
 const InquirySchema = z.object({
   company: z.string().trim().min(2).max(120),
@@ -13,10 +15,12 @@ const InquirySchema = z.object({
   website: z.string().max(0).optional().default(''), // honeypot: must stay empty
 })
 
+export type Inquiry = Omit<z.infer<typeof InquirySchema>, 'website'>
+
 /**
- * B2B enquiry endpoint. Validates, rate-limits and records the request.
- * Email delivery is wired in via `inquiryToEmail` once a provider is chosen;
- * for the MVP every valid enquiry is logged server-side so nothing is lost.
+ * B2B enquiry endpoint: validate → rate-limit → email the sales inbox and
+ * acknowledge the sender. Without RESEND_API_KEY it logs instead of sending,
+ * so a misconfigured deploy still records the lead.
  */
 export default defineEventHandler(async (event) => {
   const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
@@ -30,9 +34,37 @@ export default defineEventHandler(async (event) => {
   }
 
   const { website, ...inquiry } = parsed.data
-  const record = { ...inquiry, receivedAt: new Date().toISOString(), ip }
+  const receivedAt = new Date().toISOString()
+  const config = useRuntimeConfig(event)
 
-  console.info('[inquiry]', JSON.stringify(record))
+  if (!config.resendApiKey || !config.inquiryToEmail) {
+    console.info('[inquiry:unsent]', JSON.stringify({ ...inquiry, receivedAt, ip }))
+    return { ok: true }
+  }
+
+  const resend = new Resend(config.resendApiKey)
+  const mail = renderInquiryEmail(inquiry, receivedAt)
+
+  try {
+    await resend.emails.send({
+      from: config.inquiryFromEmail,
+      to: [config.inquiryToEmail],
+      replyTo: inquiry.email,
+      subject: mail.internalSubject,
+      html: mail.internalHtml,
+      text: mail.internalText,
+    })
+    await resend.emails.send({
+      from: config.inquiryFromEmail,
+      to: [inquiry.email],
+      subject: mail.ackSubject,
+      html: mail.ackHtml,
+      text: mail.ackText,
+    })
+  } catch (error) {
+    console.error('[inquiry:send-failed]', error, JSON.stringify({ ...inquiry, receivedAt }))
+    throw createError({ statusCode: 502, message: 'We could not send your request. Please email us directly.' })
+  }
 
   return { ok: true }
 })

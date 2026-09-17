@@ -38,9 +38,19 @@ ffmpeg -i public/videos/spice-story-final.mp4 -vf "fps=15,scale=640:-2"  -c:v li
 
 Update `heroFrameCount` in `nuxt.config.ts` if the count changes.
 
-## Not in the MVP (per docs/02-decisions.md)
+## Environment (Vercel → Project → Environment Variables)
 
-- Supabase + `/admin` panel — products are JSON for now.
-- Email delivery for enquiries — endpoint validates and logs; plug in Resend/SMTP.
+See `.env.example`. `NUXT_PUBLIC_SITE_URL` is required for correct canonical/hreflang/OG URLs.
+Set `RESEND_API_KEY` + `INQUIRY_TO_EMAIL` to deliver enquiries; a verified sending domain in
+Resend lets you change `INQUIRY_FROM_EMAIL` from the sandbox address.
+
+## Routing / SEO
+
+- `@nuxtjs/i18n`, `prefix_except_default`: EN at `/`, MK at `/mk/...`, hreflang + x-default on every page.
+- `@nuxtjs/sitemap`: `/sitemap.xml` → per-locale sitemaps; product URLs come from `server/api/__sitemap__/urls.ts`.
+- `public/robots.txt`, `public/og.jpg`, favicons in `public/`.
+
+## Not in this build
+
+- Supabase + `/admin` panel — products are JSON for now (`content/products.json`).
 - Real product photography — current shots are AI placeholders in the agreed style.
-- `@nuxtjs/i18n` with `/mk` route prefix + hreflang — locale is a cookie toggle for now.

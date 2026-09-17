@@ -6,7 +6,7 @@ const { l } = useLocale()
 </script>
 
 <template>
-  <NuxtLink :to="`/products/${product.slug}`" class="card">
+  <NuxtLinkLocale :to="`/products/${product.slug}`" class="card">
     <div class="card__media">
       <img :src="product.image" :alt="l(product.name)" loading="lazy" width="1600" height="2000" />
     </div>
@@ -17,7 +17,7 @@ const { l } = useLocale()
       </div>
       <span class="card__arrow" aria-hidden="true">↗</span>
     </div>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <style scoped>

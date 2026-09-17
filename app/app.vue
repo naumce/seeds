@@ -1,6 +1,10 @@
 <script setup lang="ts">
-const { locale } = useLocale()
-useHead({ htmlAttrs: { lang: locale } })
+const head = useLocaleHead({ seo: true })
+useHead(() => ({
+  htmlAttrs: { lang: head.value.htmlAttrs?.lang ?? 'en' },
+  link: [...(head.value.link ?? [])],
+  meta: [...(head.value.meta ?? [])],
+}))
 </script>
 
 <template>

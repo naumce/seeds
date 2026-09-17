@@ -7,7 +7,8 @@ watch(() => route.path, () => (open.value = false))
 /* The nav is light-on-dark only while the cinematic hero is pinned. */
 const HERO_PIN_VH = 9
 const pastHero = ref(false)
-const dark = computed(() => route.path === '/' && !pastHero.value)
+const isHome = computed(() => String(route.name ?? '').startsWith('index'))
+const dark = computed(() => isHome.value && !pastHero.value)
 const onScroll = () => {
   pastHero.value = window.scrollY > window.innerHeight * HERO_PIN_VH
 }
@@ -20,20 +21,20 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 
 <template>
   <div class="site">
-    <header class="nav" :class="{ 'nav--dark': dark, 'nav--overlay': route.path === '/' }">
+    <header class="nav" :class="{ 'nav--dark': dark, 'nav--overlay': isHome }">
       <div class="wrap nav__row">
-        <NuxtLink to="/" class="nav__brand serif">terra spice</NuxtLink>
+        <NuxtLinkLocale to="/" class="nav__brand serif">terra spice</NuxtLinkLocale>
         <nav class="nav__links" :class="{ 'is-open': open }" aria-label="Main">
-          <NuxtLink to="/products">{{ t('nav.collection') }}</NuxtLink>
-          <NuxtLink to="/about">{{ t('nav.story') }}</NuxtLink>
-          <NuxtLink to="/quality">{{ t('nav.quality') }}</NuxtLink>
-          <NuxtLink to="/contact">{{ t('nav.contact') }}</NuxtLink>
+          <NuxtLinkLocale to="/products">{{ t('nav.collection') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/about">{{ t('nav.story') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/quality">{{ t('nav.quality') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/contact">{{ t('nav.contact') }}</NuxtLinkLocale>
         </nav>
         <div class="nav__right">
           <button class="nav__lang" type="button" :aria-label="`Switch language, current ${locale}`" @click="toggle">
             <span :class="{ 'is-active': locale === 'mk' }">MK</span> / <span :class="{ 'is-active': locale === 'en' }">EN</span>
           </button>
-          <NuxtLink to="/contact" class="nav__cta">{{ t('nav.quote') }}</NuxtLink>
+          <NuxtLinkLocale to="/contact" class="nav__cta">{{ t('nav.quote') }}</NuxtLinkLocale>
           <button class="nav__burger" type="button" aria-label="Menu" :aria-expanded="open" @click="open = !open">
             <span /><span />
           </button>
@@ -49,16 +50,16 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       <div class="wrap">
         <div class="footer__cta">
           <h2 class="serif t-lg">{{ t('home.ctaTitle') }}</h2>
-          <NuxtLink to="/contact" class="btn">{{ t('home.ctaBtn') }} ↗</NuxtLink>
+          <NuxtLinkLocale to="/contact" class="btn">{{ t('home.ctaBtn') }} ↗</NuxtLinkLocale>
         </div>
         <hr class="rule" />
         <div class="footer__meta">
           <span class="serif footer__brand">terra spice</span>
           <span class="muted">{{ t('footer.tag') }}</span>
           <span class="footer__links">
-            <NuxtLink to="/products">{{ t('nav.collection') }}</NuxtLink>
+            <NuxtLinkLocale to="/products">{{ t('nav.collection') }}</NuxtLinkLocale>
             <span aria-hidden="true">/</span>
-            <NuxtLink to="/contact">{{ t('nav.contact') }}</NuxtLink>
+            <NuxtLinkLocale to="/contact">{{ t('nav.contact') }}</NuxtLinkLocale>
           </span>
         </div>
       </div>

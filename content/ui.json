@@ -79,5 +79,12 @@
     "ok": { "en": "Thank you. We’ll reply within one working day.", "mk": "Ви благодариме. Ќе одговориме во рок од еден работен ден." },
     "err": { "en": "Something went wrong. Please email us directly.", "mk": "Нешто не е во ред. Ве молиме пишете ни директно." }
   },
+  "error": {
+    "notFoundTitle": { "en": "Nothing here.", "mk": "Тука нема ништо." },
+    "notFoundBody": { "en": "The page you were looking for has moved or never existed.", "mk": "Страницата што ја баравте е преместена или не постои." },
+    "genericTitle": { "en": "Something went wrong.", "mk": "Нешто не е во ред." },
+    "genericBody": { "en": "Please try again in a moment.", "mk": "Обидете се повторно за момент." },
+    "home": { "en": "Back to home", "mk": "Назад на почетна" }
+  },
   "footer": { "tag": { "en": "North Macedonia · Worldwide", "mk": "Северна Македонија · Свет" } }
 }

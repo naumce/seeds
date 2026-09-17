@@ -4,25 +4,17 @@ export type Locale = 'en' | 'mk'
 export type Localized<T = string> = Record<Locale, T>
 
 const LOCALES: Locale[] = ['en', 'mk']
-const COOKIE = 'ts_locale'
-
-const isLocale = (v: unknown): v is Locale => typeof v === 'string' && LOCALES.includes(v as Locale)
 
 /**
- * Minimal MK/EN locale layer. Content lives as `{ en, mk }` objects so that
- * swapping in @nuxtjs/i18n or a database later is a drop-in change.
+ * MK/EN content layer on top of @nuxtjs/i18n. Routing, cookies and hreflang
+ * come from the module; copy lives in content/ui.json as `{ en, mk }` objects
+ * (the same shape the catalogue uses), so one helper serves both.
  */
 export const useLocale = () => {
-  const cookie = useCookie<Locale>(COOKIE, { default: () => 'en', sameSite: 'lax' })
-  const locale = useState<Locale>('locale', () => (isLocale(cookie.value) ? cookie.value : 'en'))
+  const i18n = useI18n()
+  const locale = computed<Locale>(() => (i18n.locale.value === 'mk' ? 'mk' : 'en'))
 
-  const setLocale = (next: Locale) => {
-    if (!isLocale(next)) return
-    locale.value = next
-    cookie.value = next
-    if (import.meta.client) document.documentElement.lang = next
-  }
-
+  const setLocale = (next: Locale) => i18n.setLocale(next)
   const toggle = () => setLocale(locale.value === 'en' ? 'mk' : 'en')
 
   /** Pick the current language from a `{ en, mk }` object. */
