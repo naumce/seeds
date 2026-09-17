@@ -31,6 +31,7 @@ const catName = (slug: string) => l(allCategories().find((c) => c.slug === slug)
 const root = ref<HTMLElement | null>(null)
 const canvas = ref<HTMLCanvasElement | null>(null)
 const progress = ref(0)
+const loaded = ref(0)
 const ready = ref(false)
 const reduced = ref(false)
 
@@ -53,14 +54,15 @@ const draw = () => {
   const c = canvas.value
   const img = sequence?.nearest(currentIndex)
   if (!c || !img) return
-  const g = c.getContext('2d')
+  const g = c.getContext('2d', { alpha: false })
   if (!g) return
   const cw = c.width
   const ch = c.height
   const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight)
   const w = img.naturalWidth * scale
   const h = img.naturalHeight * scale
-  g.clearRect(0, 0, cw, ch)
+  g.fillStyle = '#0b0a09'
+  g.fillRect(0, 0, cw, ch)
   g.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h)
 }
 
@@ -98,11 +100,7 @@ onMounted(async () => {
   resize()
   window.addEventListener('resize', resize, { passive: true })
 
-  try {
-    await sequence.prime()
-  } catch {
-    /* poster stays visible */
-  }
+  await sequence.prime((ratio) => (loaded.value = ratio))
   ready.value = true
   scheduleDraw()
 
@@ -139,6 +137,11 @@ onBeforeUnmount(() => {
   <section ref="root" class="hero" :class="{ 'is-ready': ready, 'is-static': reduced }" aria-label="Terra Spice story">
     <img class="hero__poster" src="/images/hero/poster.jpg" alt="" width="2560" height="1440" fetchpriority="high" />
     <canvas v-if="!reduced" ref="canvas" class="hero__canvas" aria-hidden="true" />
+
+    <div v-if="!reduced" class="hero__loader" :class="{ 'is-hidden': ready }" aria-hidden="true">
+      <span class="hero__loader-brand serif">terra spice</span>
+      <span class="hero__loader-line" :style="{ '--loaded': loaded }" />
+    </div>
 
     <div v-if="!reduced" class="hero__copy" aria-live="polite">
       <p
@@ -188,6 +191,42 @@ onBeforeUnmount(() => {
 }
 .is-ready .hero__poster {
   opacity: 0;
+}
+.hero__loader {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  gap: 18px;
+  background: var(--charcoal);
+  transition: opacity 0.7s var(--ease), visibility 0s linear 0.7s;
+}
+.hero__loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.hero__loader-brand {
+  font-size: 20px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  color: var(--bone);
+}
+.hero__loader-line {
+  width: 160px;
+  height: 1px;
+  background: rgba(239, 233, 220, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+.hero__loader-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bone);
+  transform-origin: left;
+  transform: scaleX(var(--loaded, 0));
+  transition: transform 0.2s linear;
 }
 .hero__copy {
   position: absolute;

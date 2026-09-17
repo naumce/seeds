@@ -8,11 +8,6 @@ useSeoMeta({
     'Terra Spice imports, processes and exports spices, herbs and dried vegetables for food manufacturers across the Balkans and Europe.',
 })
 
-const journey = [
-  { key: 'j1', src: '/images/journey/01-plant.webp' },
-  { key: 'j2', src: '/images/journey/02-drying.webp' },
-  { key: 'j3', src: '/images/journey/03-pallet.webp' },
-]
 const quality = ['q1', 'q2', 'q3']
 </script>
 
@@ -84,21 +79,8 @@ const quality = ['q1', 'q2', 'q3']
       </div>
     </section>
 
-    <!-- Origin to destination strip -->
-    <section class="section journey">
-      <div class="wrap">
-        <div class="head">
-          <p class="eyebrow">{{ t('home.journeyEyebrow') }}</p>
-          <h2 class="serif t-lg">{{ t('home.journeyTitle') }}</h2>
-        </div>
-        <ul class="journey__row">
-          <li v-for="(j, i) in journey" :key="j.key">
-            <img :src="j.src" :alt="t(`home.${j.key}`)" loading="lazy" width="2688" height="1520" />
-            <p class="eyebrow journey__cap">0{{ i + 1 }} — {{ t(`home.${j.key}`) }}</p>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <!-- Origin to destination: sticky explainer -->
+    <JourneyExplainer />
 
     <!-- Quality -->
     <section class="section">
@@ -214,28 +196,6 @@ const quality = ['q1', 'q2', 'q3']
   max-width: 48ch;
 }
 
-.journey {
-  background: var(--charcoal);
-  color: var(--bone);
-}
-.journey .eyebrow,
-.journey .muted {
-  color: rgba(239, 233, 220, 0.6);
-}
-.journey__row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.journey__row img {
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  width: 100%;
-}
-.journey__cap {
-  margin-top: 12px;
-}
-
 .quality__t {
   font-size: 16px;
   font-weight: 500;
@@ -267,8 +227,7 @@ const quality = ['q1', 'q2', 'q3']
   .head--row .link {
     justify-self: start;
   }
-  .grid-3,
-  .journey__row {
+  .grid-3 {
     grid-template-columns: 1fr;
   }
 }

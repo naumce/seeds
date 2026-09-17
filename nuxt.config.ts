@@ -30,6 +30,11 @@ export default defineNuxtConfig({
       heroFrameCount: 979,
     },
   },
+  routeRules: {
+    /* Frames and images are content-addressed by regeneration — cache hard. */
+    '/frames/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+    '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+  },
   nitro: {
     prerender: {
       crawlLinks: false,

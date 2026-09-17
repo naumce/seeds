@@ -73,12 +73,33 @@ export const useFrameSequence = (opts: FrameSequenceOptions) => {
     }
   }
 
-  /** Warm the opening frames; resolves once the first frame is decoded. */
-  const prime = async () => {
-    const first = await load(0)
-    cache.set(0, first)
-    enqueue(Array.from({ length: initial }, (_, i) => i + 1))
-  }
+  /**
+   * Decode the opening frames before the hero is revealed, reporting 0..1
+   * progress. A missing frame or a very slow network never blocks the page:
+   * the promise settles after `timeoutMs` regardless.
+   */
+  const prime = (onProgress?: (ratio: number) => void, timeoutMs = 6000) =>
+    new Promise<void>((resolve) => {
+      let settled = false
+      let done = 0
+      const finish = () => {
+        if (settled) return
+        settled = true
+        resolve()
+      }
+      const tick = () => {
+        done += 1
+        onProgress?.(Math.min(1, done / initial))
+        if (done >= initial) finish()
+      }
+      for (let i = 0; i < initial; i += 1) {
+        load(i)
+          .then((img) => cache.set(i, img))
+          .catch(() => undefined)
+          .finally(tick)
+      }
+      setTimeout(finish, timeoutMs)
+    })
 
   /** Call on every scroll update; reprioritises the queue around `index`. */
   const seek = (index: number) => {
