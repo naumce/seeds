@@ -3,7 +3,7 @@ const { t, l } = useLocale()
 const { allCategories, featured } = useCatalogue()
 
 useSeoMeta({
-  title: 'Spices, herbs & dried vegetables — B2B import-export',
+  title: 'Spices, herbs & dried vegetables for food manufacturers',
   description:
     'Terra Spice imports, processes and exports spices, herbs and dried vegetables for food manufacturers across the Balkans and Europe.',
 })

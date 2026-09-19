@@ -11,7 +11,7 @@ const cat = category(product.category)
 const siblings = related(product)
 
 useSeoMeta({
-  title: () => `${l(product.name)} — ${product.latin}`,
+  title: () => `${l(product.name)} · ${product.latin}`,
   description: () => l(product.description),
   ogImage: () => `${config.public.siteUrl}${product.image}`,
 })
@@ -86,7 +86,7 @@ useHead({
     </div>
 
     <section id="inquiry" class="inquiry">
-      <h2 class="serif t-md">{{ t('form.title') }} — {{ l(product.name) }}</h2>
+      <h2 class="serif t-md">{{ t('form.title') }}: {{ l(product.name) }}</h2>
       <InquiryForm :product-slug="product.slug" />
     </section>
 

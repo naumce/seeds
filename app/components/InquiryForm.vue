@@ -51,7 +51,7 @@ const submit = async () => {
       <label>
         <span>{{ t('form.product') }}</span>
         <select v-model="form.product" name="product">
-          <option value="">—</option>
+          <option value="">–</option>
           <option v-for="p in allProducts()" :key="p.slug" :value="p.slug">{{ l(p.name) }}</option>
         </select>
       </label>
